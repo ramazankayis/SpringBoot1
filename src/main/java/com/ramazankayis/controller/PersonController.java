@@ -26,6 +26,8 @@ public class PersonController {
     // http://localhost:8080/thymeleaf1
     @GetMapping("thymeleaf1")
     public String thymeleaf1(){
+
+        System.out.println("Merhabalar44");
         return "thymeleaf1";
     }
 
