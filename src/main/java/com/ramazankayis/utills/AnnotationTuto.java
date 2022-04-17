@@ -7,10 +7,12 @@ import lombok.NoArgsConstructor;
 
 public class AnnotationTuto {
     //lombok
-    /*@Data
+    /*
+    @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    @Builder*/
+    @Builder
+    */
 
     //spring boot
     /*
