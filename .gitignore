@@ -1,3 +1,16 @@
+### special ###
+###############
+### backend ###
+log
+memory_persist
+
+### special ###
+###############
+### frontend ###
+frontend/node_modules
+
+### other ###
+###############
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
