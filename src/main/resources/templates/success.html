@@ -1,7 +1,7 @@
 <!doctype html>
 <html  th:lang="${#locale.language}"  xmlns:th="http://www.thymeleaf.org" >
 <head>
-    <title>Listem</title>
+    <title>Title</title>
     <!-- Turkce karakter -->
     <meta charset="utf-8">
 
@@ -37,38 +37,8 @@
 
 <body class="container">
     <!-- start codes -->
-    <h1 class="text-primary">Thymeleaf5</h1>
-    <p th:text="${key_list}"  class="text-center text-warning"></p>
+    <h1 class="text-primary">Kayıt Başarılı</h1>
 
-    <hr>
-   <!-- table.table.table-striped.table-hover>(thead>tr>th*3)+(tbody>tr>td*3)-->
-    <table class="table table-striped table-hover table-primary">
-        <!--thead start-->
-        <thead>
-        <tr>
-            <th th:text="#{id}">ID</th>
-            <th th:text="#{name}"></th>
-            <th th:text="#{surname}"></th>
-            <th>Sonuç</th>
-        </tr>
-        </thead>
-
-        <!--tbody-->
-        <tbody>
-        <tr th:each="takma_ad:${key_list}" class="bg-dark">
-            <td th:text="${takma_ad.personId}" ></td>
-            <td th:text="${takma_ad.personName}" ></td>
-            <td th:text="${takma_ad.personSurname}" ></td>
-            <td th:if="${takma_ad.personId>=3}"  th:text="üstünde"></td>
-            <td th:unless="${takma_ad.personId>=3}"  th:text="altında"></td>
-
-        </tr>
-
-        </tbody>
-    </table>
-
-
-    <!--bootstrap table : adi,soyadi,tc,hescode-->
 
     <!-- ends codes -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
