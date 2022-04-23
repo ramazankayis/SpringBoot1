@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -133,5 +134,88 @@ public class PersonController {
         }
         return "thymeleaf8";
     }
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //RequestParam-1
+    // http://localhost:8080/thymeleaf9?id=55
+    @GetMapping("thymeleaf9")
+    public String thymeleaf9(@RequestParam(name = "id") Long id, Model model) {
+        PersonDto personDto = PersonDto
+                .builder()
+                .personId(id)
+                .personName("adı44")
+                .personSurname("soyadı44")
+                .build();
+        model.addAttribute("key_text", personDto);
+        return "thymeleaf9";
+    }
+
+    //RequestParam-2
+    // http://localhost:8080/thymeleaf10?adi=Hamit&soyadi=Mızrak
+    @GetMapping("thymeleaf10")
+    public String thymeleaf10(
+
+            @RequestParam(name = "adi") String adi,
+            @RequestParam(name = "soyadi") String soyadi,
+            Model model
+    ) {
+        PersonDto personDto = PersonDto
+                .builder()
+                .personId(4L)
+                .personName(adi)
+                .personSurname(soyadi)
+                .build();
+        model.addAttribute("key_text", personDto);
+        return "thymeleaf10";
+    }
+
+    //RequestParam-3
+    // http://localhost:8080/thymeleaf11/44?adi=Hamit&soyadi=Mızrak
+    @GetMapping("thymeleaf11/{id}")
+    public String thymeleaf11(
+            @PathVariable(name = "id") Long id,
+            @RequestParam(name = "adi") String adi,
+            @RequestParam(name = "soyadi") String soyadi,
+            Model model
+    ) {
+        PersonDto personDto = PersonDto
+                .builder()
+                .personId(id)
+                .personName(adi)
+                .personSurname(soyadi)
+                .build();
+        model.addAttribute("key_text", personDto);
+        return "thymeleaf11";
+    }
+
+
+    //RequestParam-4
+    // http://localhost:8080/thymeleaf12?adi=Hamit&soyadi=Mızrak
+    // http://localhost:8080/thymeleaf12/55?adi=Hamit&soyadi=Mızrak
+    @GetMapping({"thymeleaf12","thymeleaf12/{id}"})
+    public String thymeleaf12(
+            @PathVariable(name = "id",required = false) Long id,
+            @RequestParam(name = "adi") String adi,
+            @RequestParam(name = "soyadi") String soyadi,
+            Model model
+    ) {
+        if(id==null || id==0L){
+            model.addAttribute("key_text", "id sıfır veya girilmedi");
+        }else{
+            PersonDto personDto = PersonDto
+                    .builder()
+                    .personId(id)
+                    .personName(adi)
+                    .personSurname(soyadi)
+                    .build();
+            model.addAttribute("key_text", personDto);
+        }
+        return "thymeleaf12";
+    }
+
+
 
 }
