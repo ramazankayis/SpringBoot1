@@ -6,6 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class PersonController {
 
@@ -54,13 +57,27 @@ public class PersonController {
     @GetMapping("thymeleaf4")
     public String thymeleaf4(Model model){
 
+        //parametresiz
         PersonDto personDto=new PersonDto();
         personDto.setPersonId(0L);
         personDto.setPersonName("person name");
         personDto.setPersonSurname("person surname");
-
         model.addAttribute("key_text",personDto);
         return "thymeleaf4";
+    }
+
+    //object
+    // http://localhost:8080/thymeleaf5
+    @GetMapping("thymeleaf5")
+    public String thymeleaf5(Model model){
+        List<PersonDto> personDtoList=new ArrayList<>();
+        personDtoList.add(new PersonDto(1L,"personadi1","personsoyadi1"));
+        personDtoList.add(new PersonDto(2L,"personadi2","personsoyadi2"));
+        personDtoList.add(new PersonDto(3L,"personadi3","personsoyadi3"));
+        personDtoList.add(new PersonDto(4L,"personadi4","personsoyadi4"));
+        personDtoList.add(new PersonDto(5L,"personadi5","personsoyadi5"));
+        model.addAttribute( "key_list",   personDtoList);
+        return "thymeleaf5";
     }
 
 }
