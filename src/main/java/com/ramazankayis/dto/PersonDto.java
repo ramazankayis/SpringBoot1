@@ -13,5 +13,6 @@ public class PersonDto {
 
     private Long personId;
     private String personName;
-    private Long personSurname;
+    private String personSurname;
+
 }

@@ -1,5 +1,6 @@
 package com.ramazankayis.controller;
 
+import com.ramazankayis.dto.PersonDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,6 +46,21 @@ public class PersonController {
     @GetMapping("thymeleaf3")
     public String thymeleaf3(){
         return "thymeleaf3";
+    }
+
+
+    //object
+    // http://localhost:8080/thymeleaf4
+    @GetMapping("thymeleaf4")
+    public String thymeleaf4(Model model){
+
+        PersonDto personDto=new PersonDto();
+        personDto.setPersonId(0L);
+        personDto.setPersonName("person name");
+        personDto.setPersonSurname("person surname");
+
+        model.addAttribute("key_text",personDto);
+        return "thymeleaf4";
     }
 
 }
