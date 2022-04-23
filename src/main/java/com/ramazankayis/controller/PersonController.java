@@ -4,6 +4,7 @@ import com.ramazankayis.dto.PersonDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -78,6 +79,59 @@ public class PersonController {
         personDtoList.add(new PersonDto(5L,"personadi5","personsoyadi5"));
         model.addAttribute( "key_list",   personDtoList);
         return "thymeleaf5";
+    }
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    //PathVariable-1
+    // http://localhost:8080/thymeleaf6/44
+    @GetMapping("thymeleaf6/{id}")
+    public String thymeleaf6(@PathVariable(name = "id") Long id, Model model) {
+        PersonDto personDto = PersonDto
+                .builder()
+                .personId(id)
+                .personName("adı44")
+                .personSurname("soyadı44")
+                .build();
+        model.addAttribute("key_text", personDto);
+        return "thymeleaf6";
+    }
+
+
+    //PathVariable-2
+    // http://localhost:8080/thymeleaf7/44
+    @GetMapping({"/thymeleaf7", "/thymeleaf7/{id}"})
+    public String thymeleaf7(@PathVariable(name = "id", required = false) Long id, Model model) {
+        PersonDto personDto = PersonDto
+                .builder()
+                .personId(id)
+                .personName("adı")
+                .personSurname("soyadı")
+                .build();
+        model.addAttribute("key_text", personDto);
+        return "thymeleaf7";
+    }
+
+    //PathVariable-3
+    // http://localhost:8080/thymeleaf8/44
+    @GetMapping({"/thymeleaf8", "/thymeleaf8/{id}"})
+    public String thymeleaf8(@PathVariable(name = "id", required = false) Long id, Model model) {
+
+        if (id == null) {
+            model.addAttribute("key_text", "id girmediniz");
+        } else if (id == 0L) {
+            model.addAttribute("key_text", "sıfır girildi");
+        } else {
+            PersonDto personDto = PersonDto
+                    .builder()
+                    .personId(id)
+                    .personName("adı")
+                    .personSurname("soyadı")
+                    .build();
+            model.addAttribute("key_text", personDto);
+        }
+        return "thymeleaf8";
     }
 
 }
