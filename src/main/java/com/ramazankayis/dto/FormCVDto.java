@@ -20,7 +20,8 @@ import java.util.Locale;
 @Builder
 public class FormCVDto {
 
-    private Long registerId;
+
+    private Long registerId=1L;
 
     @NotEmpty(message="Adı veya soyadını boş geçemezsiniz")
     private String registerNameAndSurname;
@@ -35,7 +36,7 @@ public class FormCVDto {
     @NotEmpty(message="yaş boş geçemezsiniz")
     @Min(message = "18 yaş altı olamaz",value = 18)
     @Max(message = "55 yaş altı üstü olamaz",value = 55)
-    private int registerAge;
+    private String registerAge;
 
 
     public String creationDate=getNowDate();

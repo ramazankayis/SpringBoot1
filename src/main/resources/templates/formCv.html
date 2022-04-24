@@ -33,43 +33,80 @@
     <link rel="stylesheet"   th:href="@{/css/index.css}">
     <script th:src="@{/js/index.js}"></script>
 
-</head>
-
-<body class="container">
-    <!-- start codes -->
-    <h1 class="text-primary display-2">Şirket CV</h1>
+</head><body class="container bg-dark text-white">
+<!-- start codes -->
+<h1 class="text-primary display-2 text-uppercase text-center">Şirket CV</h1>
 <!--
     #{} ==> messages
     ${} ==> thymeaf
     *{} ==> form
-    @{} ==> js/css
+    @{} ==> action,js/css
     -->
+<!--
+Java
+th:object="${form_validation_key}"  ==> model.addAttributes("key")
+th:method="post" ==> java backent gidecek
+th:action="@{/form}" ==> @GetMapping("/form")
+th:text="#{register_id}" ==> message.properties
+th:field="*{registerId}"
+th:if="${#fields.hasErrors('registerNameAndSurname')}"  ==> eğer bindingResult bir hata varsa
+-->
+<form th:object="${form_validation_key}" th:method="post"  th:action="@{/form}">
+    <div class="container">
+        <div class="row">
+            <div th:text="#{register_id}" class="col-md-2 mt-3 mb-3"></div>
+            <div class="col-md-10">
+                <input type="text" th:field="*{registerId}" class="form-control"   disabled="disabled" />
+            </div>
 
-    <form th:method="post" th:object="${form_key}" th:action="@{/company}">
-        <div class="container">
-            <div class="row">
-                <div th:text="#{register_id}" class="col-md-2"></div>
-                <div class="col-md-10">
-                    <input th:field="*{registerId}" class="form-control" type="text" id="registerId" disabled="disabled" />
-                </div>
+            <!--name and surname-->
+            <div th:text="#{register_name}"  class="col-md-2 mt-3 "></div>
+            <div class="col-md-10">
+                <input type="text" th:field="*{registerNameAndSurname}" class="form-control" />
+                <div  class="text-danger"  th:if="${#fields.hasErrors('registerNameAndSurname')}" th:errors ="*{registerNameAndSurname}" />
+            </div>
 
-                <div th:text="#{register_name}"  class="col-md-2"></div>
-                <div class="col-md-10">
-                    <input th:field="*{registerNameAndSurname}" class="form-control" type="text" id="registerNameAndSurname" />
-                    <div th:if="${#fields.hasErrors('registerNameAndSurname')}" th:errors ="*{registerNameAndSurname}" />
-                </div>
 
-                <button th:text="#{register_reset}" type="reset" class="btn btn-danger"></button>
-                <button th:text="#{register_submit}" type="submit" class="btn btn-primary"></button>
+            <!--password-->
+            <div th:text="#{register_password}"  class="col-md-2"></div>
+            <div class="col-md-10">
+                <input type="text" th:field="*{registerPassword}" class="form-control mt-3 "  />
+                <div  class="text-danger"  th:if="${#fields.hasErrors('registerPassword')}" th:errors ="*{registerPassword}" />
+            </div>
 
+
+            <!--email-->
+            <div th:text="#{register_email}"  class="col-md-2"></div>
+            <div class="col-md-10">
+                <input type="text" th:field="*{registerEmail}" class="form-control mt-3 "  />
+                <div  class="text-danger"   th:if="${#fields.hasErrors('registerEmail')}" th:errors ="*{registerEmail}" />
+            </div>
+
+            <!--age-->
+            <div th:text="#{register_age}"  class="col-md-2 mt-3 "></div>
+            <div class="col-md-10">
+                <input type="text" th:field="*{registerAge}" class="form-control mt-3 " />
+                <div  class="text-danger"  th:if="${#fields.hasErrors('registerAge')}" th:errors ="*{registerAge}" />
+            </div>
+
+
+            <!--date-->
+            <div th:text="#{register_date}"  class="col-md-2 mt-3 "></div>
+            <div class="col-md-10">
+                <input class="form-control text-primary"  type="text" th:field="*{creationDate}" name="creationDate"  id="creationDate" />
+            </div>
+
+            <div class="col-md-2"></div>
+            <div class="col-md-10">
+                <button th:text="#{register_reset}" type="reset" class="btn btn-danger btn-sm"></button>
+                <button th:text="#{register_submit}" type="submit" class="btn btn-primary btn-sm"></button>
             </div>
         </div>
-    </form>
+    </div>
+</form>
 
 
-
-
-    <!-- ends codes -->
+<!-- ends codes -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
 </body>

@@ -16,25 +16,24 @@ import javax.validation.Valid;
 public class FormCVController {
 
 
-    //Get
-    // http://localhost:8080/company
-    @GetMapping("company")
+    // Get
+    // http://localhost:8080/form
+    @GetMapping("/form")
     public String getForm(Model model) {
-        model.addAttribute("form_key", new FormCVDto());
+        model.addAttribute("form_validation_key", new FormCVDto());
         return "formCv";
     }
 
-    //Get
-    // http://localhost:8080/company
-    @PostMapping("company")
-    public String postForm(@Valid @ModelAttribute FormCVDto formCVDto, BindingResult bindingResult) {
+    // Post
+    // http://localhost:8080/form
+    @PostMapping("/form")
+    public String postForm(@Valid @ModelAttribute("form_validation_key") FormCVDto formCVDto, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
             return "formCv";
         }
-        //database
-        //dosyaya
+        //database işlemleri için
+        //dosya  işlemleri için
         log.info(formCVDto);
         return "success";
     }
-
 }
