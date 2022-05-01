@@ -27,6 +27,12 @@ public class BaseEntity {
     @Column(name = "id",updatable = false)
     private Long personId;
 
+    //system_current_time
+    @Column(name = "system_created_date")
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private java.util.Date systemCreatedDate;
+
     //kim ekledi
     @Column(name="created_by")
     @CreatedBy
@@ -49,8 +55,4 @@ public class BaseEntity {
     public java.util.Date lastModifiedDate;
 
 
-    @Column(name = "system_created_date")
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    private java.util.Date systemCreatedDate;
 }
