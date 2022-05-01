@@ -30,12 +30,26 @@ public class PersonControllerData {
         return  "Kaydetme başarılı";
     }
 
-    //paging
-    //http://localhost:8080/person/sorting
-    @GetMapping("person/sorting")
+    //sorting: küçükten büyüğe doğru sıralama
+    //http://localhost:8080/person/sorting/asc
+    @GetMapping("person/sorting/asc")
     @ResponseBody
-    public  String personSorting(){
+    public  String personSortingAsc(){
         Sort sort=Sort.by("personName");
+        Iterable<PersonEntity> sortingList=  personRepository.findAll(sort);
+        for(PersonEntity temp :sortingList){
+            log.info(temp+" ");
+        }
+        return sortingList+" ";
+    }
+
+
+    //sorting:  büyükten küçükten doğru sıralama
+    //http://localhost:8080/person/sorting/desc
+    @GetMapping("person/sorting/desc")
+    @ResponseBody
+    public  String personSortingDesc(){
+        Sort sort=Sort.by("personName").descending();
         Iterable<PersonEntity> sortingList=  personRepository.findAll(sort);
 
         for(PersonEntity temp :sortingList){
