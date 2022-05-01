@@ -1,4 +1,7 @@
 package com.ramazankayis.pagingsorting;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.stereotype.Repository;
 
-public interface PersonRepository {
+@Repository
+public interface PersonRepository extends PagingAndSortingRepository<PersonEntity,Long> {
 }
