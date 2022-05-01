@@ -61,7 +61,7 @@ public class PersonControllerData {
         return sortingList + " ";
     }
 
-    //paging
+    //paging: manuel
     //http://localhost:8080/person/paging
     @GetMapping("person/paging")
     @ResponseBody
@@ -75,13 +75,30 @@ public class PersonControllerData {
         return pageListem+"" ;
     }
 
-    //paging
+    //paging: page dynamic but size manuel data
     //http://localhost:8080/person/paging/0
     @GetMapping("person/paging/{page}")
     @ResponseBody
     public String personPageAndSize(@PathVariable(name="page") int page) {
         //0:page  5:data sayısı
         Pageable pageable = PageRequest.of(page, 5);
+        Page<PersonEntity> pageListem = personRepository.findAll(pageable);
+        for (PersonEntity temp : pageListem) {
+            log.info(temp + " ");
+        }
+        return pageListem+"" ;
+    }
+
+    //paging
+    //http://localhost:8080/person/paging/0/10
+    @GetMapping("person/paging/{page}/{size}")
+    @ResponseBody
+    public String personPageAndSizeData(
+            @PathVariable(name="page") int page,
+            @PathVariable(name="size") int size
+    ) {
+        //0:page  5:data sayısı
+        Pageable pageable = PageRequest.of(page, size);
         Page<PersonEntity> pageListem = personRepository.findAll(pageable);
         for (PersonEntity temp : pageListem) {
             log.info(temp + " ");
