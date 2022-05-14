@@ -1,8 +1,9 @@
 package com.ramazankayis.entity.repository;
 
-import com.ramazankayis.entity.ComputerEntity;
+import com.ramazankayis.form.ComputerEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+
 
 import java.util.List;
 

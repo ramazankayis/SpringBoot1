@@ -1,6 +1,5 @@
-package com.ramazankayis.data;
+package com.ramazankayis.form;
 
-import com.ramazankayis.entity.ComputerEntity;
 import com.ramazankayis.entity.repository.IComputer;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,21 +25,23 @@ public class ComputerData {
     //Save
     //normal save sql: INSERT INTO computer (`computer_mac_id`, `computer_name`, `computer_price`, `created_date`) VALUES ('mac-id: 06d818a9-5798-4b2b-a00a-07c2bac55c794', 'computerAdi', '1600', '2022-04-30 09:37:02');
     // http://localhost:8080/computer/manuel/save
-//    @GetMapping("/computer/manuel/save")
-//    @ResponseBody
-//    public String saveComputer(){
-//        UUID uuid=UUID.randomUUID();
-//        ComputerEntity computer=ComputerEntity
-//                .builder()
-//                .computerId(0L)
-//                .computerName("computerAdi")
-//                .computerMacId("mac-id: "+uuid)
-//                .computerPrice(1500)
-//                .build();
-//        iComputer.save(computer);
-//        log.info(computer);
-//        return "computer Kaydedildi";
-//    }
+    @GetMapping("/computer/manuel/save")
+    @ResponseBody
+    public String saveComputer(){
+        UUID uuid=UUID.randomUUID();
+        for(int i=1; i<=10; i++){
+            ComputerEntity computer=ComputerEntity
+                    .builder()
+                    .computerId(0L)
+                    .computerName("computerAdi")
+                    .computerMacId("mac-id: "+uuid)
+                    .computerPrice(1500)
+                    .build();
+            iComputer.save(computer);
+            log.info(computer);
+        }
+        return "computer Kaydedildi";
+    }
 
 
 
@@ -51,7 +52,7 @@ public class ComputerData {
         Iterable<ComputerEntity> computerEntities =  iComputer.findAll();
         model.addAttribute("form_list",computerEntities);
         model.addAttribute("form_computer", new ComputerEntity());
-        return "thymeleaf13";
+        return "Spring_Mvc_Data_Form";
     }
 
     // Post
@@ -59,7 +60,7 @@ public class ComputerData {
     @PostMapping("/computer/save")
     public String postForm(@Valid @ModelAttribute("form_computer") ComputerEntity computerEntity, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
-            return "thymeleaf13";
+            return "Spring_Mvc_Data_Form";
         }
 
         UUID uuid=UUID.randomUUID();
@@ -88,6 +89,26 @@ public class ComputerData {
     }
 
     //find computername
+    // http://localhost:8080/computer/10
+    @GetMapping("/computer/{id}")
+    @ResponseBody
+    public String findByIdComputerId(@PathVariable(name="id") Long id,Model model){
+        Optional<ComputerEntity> optionalEntity= iComputer.findById(id);
+        if(optionalEntity.isPresent()){
+            ComputerEntity computer= optionalEntity.get();
+            model.addAttribute("show_key",computer);
+            log.info(computer);
+            return computer+"";
+            // return "redirect:/";
+        }else{
+            log.error(id+" id yoktur");
+            return id+" ID: data yoktur";
+        }
+    }
+
+
+
+    //find computername
     // http://localhost:8080/computer/computername/computerAdi1
     @GetMapping("/computer/computername/{name}")
     @ResponseBody
@@ -105,12 +126,14 @@ public class ComputerData {
     //normal delete sql:delete from computer WheRE (`id` = '3');
     @GetMapping("/computer/delete/{id}")
     @ResponseBody
-    public String deleteByIdComputer(@PathVariable(name="id") Long id){
+    public String deleteByIdComputer(@PathVariable(name="id") Long id,Model model){
         Optional<ComputerEntity> optionalEntity= iComputer.findById(id);
         if(optionalEntity.isPresent()){
             ComputerEntity computer= optionalEntity.get();
             iComputer.deleteById(id);
-            return "Silme Başarılı";
+            model.addAttribute("delete_key",id+" id silinmiştir");
+            return id+"id Silinmiştir";
+            // return "redirect:/";
         }else{
             return id+" ID: data yoktur";
         }

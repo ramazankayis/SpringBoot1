@@ -1,0 +1,224 @@
+<!doctype html>
+<html  th:lang="${#locale.language}"  xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <title>Listem</title>
+    <!-- Turkce karakter -->
+    <meta charset="utf-8">
+
+    <!-- responsive design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- seo -->
+    <meta name="keywords" content="html5,css3,js,jquery,bootstrap,react,javase" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+
+    <!-- google font -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS v5.0.2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+
+    <!-- jquery  -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- react libraries -->
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+    <link rel="stylesheet"   th:href="@{/css/index.css}">
+    <script th:src="@{/js/index.js}"></script>
+
+</head>
+
+<body class="container">
+<!-- start codes -->
+<h1 class="text-primary">Sprin MVC Data From Uygulaması</h1>
+
+<div class="alert alert-success" role="alert">
+    <a th:action="@{/computer/save}"  type="button" class="btn btn-primary btn-md" data-bs-toggle="modal" data-bs-target="#modelId">
+        Create
+    </a>
+
+    <a th:action="@{/computer/save}" type="button" class="btn btn-secondary btn-md" data-bs-toggle="modal" data-bs-target="#modelIdList">
+        List
+    </a>
+    <!--<p th:text="${delete_key}" class="text-danger"></p>-->
+</div>
+
+
+
+<!--list-->
+<table class="table table-hover table-striped table-responsive">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Adı</th>
+        <th>Fiyatı</th>
+        <th>MACID</th>
+        <th>Tarih</th>
+        <th>Sil</th>
+        <th>Güncelle</th>
+        <th>Göster</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="temp:${form_list}">
+        <td th:text="${temp.computerId}"></td>
+        <td th:text="${temp.computerName}"></td>
+        <td th:text="${temp.computerPrice}"></td>
+        <td th:text="${temp.computerMacId}"></td>
+        <td th:text="${temp.createdDate}"></td>
+
+        <td><a th:href="@{/computer/delete/{id}(id=${temp.computerId})}" class="btn btn-danger">Delete</a> </td>
+        <td><button class="btn btn-success">Update</button> </td>
+        <td> <a   type="button" class="btn btn-primary btn-md" data-bs-toggle="modal" data-bs-target="#modelShowId">
+            Show
+        </a></td>
+    </tr>
+    </tbody>
+</table>
+
+
+
+<!-- Modal show -->
+<div class="modal fade" id="modelShowId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title display-5">Form Kaydet</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <table class="table table-hover table-striped table-responsive">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Adı</th>
+                        <th>Fiyatı</th>
+                        <th>MACID</th>
+                        <th>Tarih</th>
+                        <th>Sil</th>
+                        <th>Güncelle</th>
+                        <th>Göster</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr >
+                        <td >Data1</td>
+                        <td >Data1</td>
+                        <td >Data1</td>
+                        <td >Data1</td>
+                        <td >Data1</td>
+
+                        <!--                            <td><a th:href="@{/computer/{id}(id=${temp.computerId})}" class="btn btn-primary">Show</a> </td>-->
+
+                        <!--                            <td><a th:href="@{/computer/delete/{id}(id=${temp.computerId})}" class="btn btn-danger">Delete</a> </td>-->
+                        <!--                            <td><button class="btn btn-success">Update</button> </td>-->
+                        <!--                            <td> <a   type="button" class="btn btn-primary btn-md" data-bs-toggle="modal" data-bs-target="#modelShowId">-->
+                        <!--                                Show-->
+                        <!--                            </a></td>-->
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal Create -->
+<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title display-5">Form Kaydet</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form th:object="${form_computer}" th:method="post"  th:action="@{/computer/save}">
+                    <div class="container">
+                        <div class="row">
+
+                            <!--computer name-->
+                            <div th:text="#{computer_computerName}"  class="col-md-3 mt-3 "></div>
+                            <div class="col-md-9 mt-3">
+                                <input type="text" th:field="*{computerName}" class="form-control" />
+                                <div  class="text-danger"  th:if="${#fields.hasErrors('computerName')}" th:errors ="*{computerName}" />
+                            </div>
+
+
+                            <!--computer price-->
+                            <div th:text="#{computer_computerPrice}"  class="col-md-3  mt-3 mb-5 "></div>
+                            <div class="col-md-9  mt-3 mb-5 ">
+                                <input type="text" th:field="*{computerPrice}" class="form-control "  />
+                                <div  class="text-danger"  th:if="${#fields.hasErrors('computerPrice')}" th:errors ="*{computerPrice}" />
+                            </div>
+
+
+
+                            <div class="modal-footer">
+                                <button th:text="#{register_reset}"type="reset" class="btn btn-danger  btn-sm"></button>
+                                <button th:text="#{register_submit}" type="submit" class="btn btn-primary  btn-sm"></button>
+                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">&times;</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Modal List -->
+<div class="modal fade bd-example-modal-lg" id="modelIdList" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content" style="width: 200%">
+            <div class="modal-header">
+                <h5 class="modal-title">Bilgisayar Kaydet</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <table class="table table-hover table-striped table-responsive">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Adı</th>
+                            <th>Fiyatı</th>
+                            <th>MACID</th>
+                            <th>Tarih</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="temp:${form_list}">
+                            <td th:text="${temp.computerId}"></td>
+                            <td th:text="${temp.computerName}"></td>
+                            <td th:text="${temp.computerPrice}"></td>
+                            <td th:text="${temp.computerMacId}"></td>
+                            <td th:text="${temp.createdDate}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ends codes -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
