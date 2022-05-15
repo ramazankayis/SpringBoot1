@@ -7,17 +7,16 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @Log4j2
-public class _01_ManuelRest {
+public class _01_ManuelRest {}
     //https://jsoneditoronline.org/#left=local.gesomi&right=local.revibe
+/*
 
 
     //http://localhost:8080/rest1
@@ -34,6 +33,18 @@ public class _01_ManuelRest {
     //http://localhost:8080/rest2
     @GetMapping("rest2")
     public ProductDto getRest2() {
+        ProductDto productDto = ProductDto
+                .builder()
+                .productId(1L)
+                .productName("Ürün Adı")
+                .productTrade("ürün markası")
+                .build();
+        return productDto;
+    }
+
+    //http://localhost:8080/rest22
+    @GetMapping(value = "rest22", produces = MediaType.APPLICATION_XML_VALUE)
+    public ProductDto getRest22() {
         ProductDto productDto = ProductDto
                 .builder()
                 .productId(1L)
@@ -84,9 +95,11 @@ public class _01_ManuelRest {
         for (int i = 1; i <= 10; i++) {
             listem.add(ProductDto.builder().productId(Long.valueOf(i)).productName("name: " + i).productTrade("Trade: " + i).build());
         }
-        /*for(ProductDto temp :listem){
+        */
+/*for(ProductDto temp :listem){
             System.out.println(temp);
-        }*/
+        }*//*
+
         return listem;
     }
 
@@ -147,4 +160,57 @@ public class _01_ManuelRest {
     }
 
 
+    /////////////////////////POSTMAPPING///////////////////////////
+    //PostMapping
+    //http://localhost:8080/post/data1
+    @PostMapping("/post/data1")
+    public void postProduct(@RequestBody ProductDto productDto) {
+        //Database
+        //Dosya
+        log.info(productDto);
+    }
+
+    //PutMapping
+    //http://localhost:8080/put/data1
+    @PutMapping("/put/data1")
+    public ProductDto putProduct(@RequestBody ProductDto productDto) {
+        //Database
+        //Dosya
+        log.info(productDto + " güncellendi");
+        return productDto;
+    }
+
+
+    //DeleteMapping
+    //http://localhost:8080/delete/data1/4
+    @DeleteMapping("/delete/data1/{id}")
+    public void deleteProduct(@RequestBody @PathVariable(name = "id") Long id) {
+        //Database
+        //Dosya
+        log.info(" silindi");
+    }
+
+    //////////////////////HEADER///////////////////////////////////////////////////////
+    //Unutma: Veri alan kişinin URL Tıklayalım
+    //Header
+    //server veri alsın
+    //http://localhost:8080/rest/header
+    @GetMapping("/rest/header")
+    public ResponseEntity<?> getHeader(@RequestHeader(value = "key_client", defaultValue = "default value") String data) {
+        //Clienttan veri geliyor.
+        String clientHeaderData = "@Controller gelen veri: " + data;
+        log.info(clientHeaderData);
+        return ResponseEntity.ok(clientHeaderData);
+    }
+
+
+    //Server veri göndersin
+    //http://localhost:8080/rest/header2
+    @GetMapping("/rest/header2")
+    public ResponseEntity<?> getHeader2() {
+        return ResponseEntity.ok().header("key_server", "HeaderServerData55").body("@RestController");
+    }
+
+
 }
+*/
