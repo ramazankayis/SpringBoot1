@@ -7,8 +7,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-//CSRF:Cross Site Request Forgency (Web siteler arasında istek Sahteciliği)
 
+//CSRF:Cross Site Request Forgency (Web siteler arasında istek Sahteciliği)
 @EnableWebSecurity
 public class _07_Security extends WebSecurityConfigurerAdapter {
 
@@ -18,13 +18,17 @@ public class _07_Security extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/index", "/register")
-                .permitAll()
+                .antMatchers("/", "/index", "/register","/user").permitAll()
+                .antMatchers("/logout").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/register");
+                .loginPage("/register")
+                .and()
+                .logout().logoutUrl("/logout").invalidateHttpSession(true)
+                .permitAll();
+
     }
 
 
@@ -34,7 +38,7 @@ public class _07_Security extends WebSecurityConfigurerAdapter {
                 .inMemoryAuthentication()
                 .withUser("hamitmizrak")
                 .password(passwordBean.passwordEncoder().encode("root"))
-                .roles("USER");
+                .roles("ADMIN_44");
     }
 
 }

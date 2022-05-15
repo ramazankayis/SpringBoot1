@@ -35,31 +35,11 @@
 
 </head>
 
-<body class="container bg-dark">
+<body class="container">
     <!-- start codes -->
-    <h1 class="text-primary">Special Login Page</h1>
-
-
-    <div class="alert alert-primary alert-dismissible fade show" role="alert">
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-
-        <strong>Login</strong> <span th:text="${key_register}"></span>
-    </div>
-
-   <!--
-   {
-    "username":"hamitmizrak",
-    "password":"root"
-    }
-    -->
-
-    <form class="container" action="/register" method="post" th:name="register">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-        <input type="text" th:name="username" class="form-control mb-5"/>
-        <input type="password" th:name="password" class="form-control mb-5"/>
-        <input type="reset" th:text="#{register_reset}" class="btn btn-primary"/>
-        <input type="submit" th:text="#{register_submit}" class="btn btn-primary"/>
-    </form>
+    <h1 class="text-primary">Çıkış yapıldı</h1>
+    <a href="/index" class="btn btn-primary">Anasayfa</a>
+    <a href="/register" class="btn btn-success">Login</a>
 
 
     <!-- ends codes -->
