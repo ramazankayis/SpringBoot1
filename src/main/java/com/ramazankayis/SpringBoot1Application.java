@@ -20,7 +20,7 @@ public class SpringBoot1Application {
 
     public static void main(String[] args) {
 
-        System.setProperty("spring.devtools.restart.enabled","true");
+        System.setProperty("spring.devtools.restart.enabled","false");
         System.setProperty("java.awt.headless", "false"); //Disables headless
         SpringApplication.run(SpringBoot1Application.class, args);
     }

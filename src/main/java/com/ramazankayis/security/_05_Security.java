@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class _05_Security {
-    @Autowired
-    PasswordEncoder passwordEncoder;
+  //  @Autowired
+   // PasswordEncoder passwordEncoder;
 }
 //@EnableWebSecurity
 //public class _05_Security extends WebSecurityConfigurerAdapter {
